@@ -206,3 +206,22 @@
 					});
 
 })(jQuery);
+
+// Custom behavior added for class project
+// Highlights the current section while scrolling
+
+document.addEventListener("scroll", function () {
+  const sections = document.querySelectorAll("section");
+  const scrollPos = window.scrollY + window.innerHeight / 3;
+
+  sections.forEach(section => {
+    const top = section.offsetTop;
+    const bottom = top + section.offsetHeight;
+
+    if (scrollPos >= top && scrollPos < bottom) {
+      section.classList.add("active-section");
+    } else {
+      section.classList.remove("active-section");
+    }
+  });
+});

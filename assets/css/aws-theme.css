@@ -1,0 +1,144 @@
+/* AWS corporate-inspired theme overrides (non-official) */
+/* Palette: AWS dark (#232F3E), AWS orange (#FF9900), light gray (#F2F3F3) */
+
+:root {
+  --aws-dark: #232F3E;
+  --aws-dark-2: #1B2633;
+  --aws-orange: #FF9900;
+  --aws-gray: #F2F3F3;
+  --aws-white: #FFFFFF;
+  --aws-text: rgba(255,255,255,0.88);
+  --aws-muted: rgba(255,255,255,0.68);
+}
+
+/* Base */
+body {
+  background: var(--aws-dark);
+}
+
+body, input, textarea, select {
+  letter-spacing: 0.01em;
+}
+
+a {
+  color: var(--aws-orange);
+}
+a:hover {
+  opacity: 0.9;
+}
+
+/* Wrapper spacing feel more “corporate” */
+#wrapper {
+  max-width: 1100px;
+}
+
+/* Intro slide: dark gradient + crisp */
+section.intro {
+  background: linear-gradient(135deg, var(--aws-dark) 0%, var(--aws-dark-2) 60%, #0F1720 100%);
+}
+section.intro header h1 {
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+section.intro header p {
+  color: var(--aws-muted);
+}
+
+/* Make sections look like product “cards” */
+section > .content {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--aws-white);
+}
+p, li {
+  color: var(--aws-text);
+}
+
+/* Feature icons highlight */
+ul.feature-icons li:before {
+  color: var(--aws-orange);
+}
+
+/* Buttons: AWS orange primary */
+.button.primary,
+input[type="submit"].primary,
+input[type="button"].primary,
+button.primary {
+  background-color: var(--aws-orange) !important;
+  color: #111 !important;
+  border: none !important;
+}
+.button.primary:hover {
+  filter: brightness(0.95);
+}
+
+/* Secondary buttons: subtle outline */
+.button,
+input[type="submit"],
+input[type="button"],
+button {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: var(--aws-white) !important;
+}
+
+/* Forms: modern dark inputs */
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.18) !important;
+  color: var(--aws-white) !important;
+}
+::placeholder {
+  color: rgba(255,255,255,0.55) !important;
+}
+
+/* Footer/copyright cleaner */
+.copyright {
+  color: rgba(255,255,255,0.55);
+}
+.copyright a {
+  color: rgba(255,255,255,0.75);
+}
+
+/* Optional: a simple “AWS-like” top bar if you add it */
+.aws-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.2rem;
+  margin: 1.2rem 0 0;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.aws-brand {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.aws-badge {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--aws-orange);
+  box-shadow: 0 0 0 4px rgba(255,153,0,0.18);
+}
+.aws-title {
+  font-weight: 600;
+  color: var(--aws-white);
+}
+.aws-meta {
+  color: var(--aws-muted);
+  font-size: 0.9em;
+}
+
+/* End of AWS corporate-inspired theme overrides */
