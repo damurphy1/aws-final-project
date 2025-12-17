@@ -1,207 +1,377 @@
 <!DOCTYPE HTML>
-<!--
-	Paradigm Shift by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license
--->
 <html>
 <head>
-	<title>AWS Cloud Web Application | Final Project</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<meta name="description" content="Final project presentation demonstrating static web hosting using AWS Amplify and CloudFront." />
-	<meta name="keywords" content="AWS, Amplify, CloudFront, Static Website, Final Project" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+  <title>AWS Final Project | EC2 Deployment</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="description" content="Student final project: Static website deployed on AWS EC2 with Apache, using GitHub for source control." />
+  <meta name="keywords" content="AWS, EC2, Apache, GitHub, Static Website, Final Project" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <style>
+    :root{
+      --aws-dark:#232F3E;
+      --aws-dark-2:#1B2633;
+      --aws-orange:#FF9900;
+      --aws-text:rgba(255,255,255,0.88);
+      --aws-muted:rgba(255,255,255,0.65);
+    }
+
+    html, body{
+      background: linear-gradient(135deg, var(--aws-dark) 0%, var(--aws-dark-2) 60%, #0F1720 100%) !important;
+      overflow-x: hidden;
+    }
+
+    *::before,
+    *::after{
+      background: none !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+
+    section > header{
+      background: linear-gradient(135deg, var(--aws-dark) 0%, var(--aws-dark-2) 100%) !important;
+      color: #fff !important;
+    }
+
+    section > .content{
+      background: rgba(255,255,255,0.04) !important;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+      padding: 2rem;
+    }
+
+    h1,h2,h3{ color:#fff !important; letter-spacing: 0.02em; }
+    p,li{ color: var(--aws-text) !important; }
+    a{ color: var(--aws-orange) !important; }
+    a:hover{ opacity: 0.9; }
+
+    strong,b{
+      color: var(--aws-orange) !important;
+      font-weight: 700;
+    }
+
+    .aws-orange{
+      color: var(--aws-orange) !important;
+      font-weight: 700;
+    }
+
+    ul.feature-icons li:before{
+      color: var(--aws-orange) !important;
+    }
+
+    code{
+      color: #fff !important;
+      background: rgba(255,255,255,0.08) !important;
+      border-radius: 6px;
+      padding: 0.15rem 0.35rem;
+    }
+
+    pre code{
+      color: rgba(255,255,255,0.92) !important;
+    }
+
+    .button.primary{
+      background-color: var(--aws-orange) !important;
+      color: #111 !important;
+      border: none !important;
+    }
+
+    .copyright{
+      color: rgba(255,255,255,0.55) !important;
+    }
+
+    #top > header{
+      padding-top: 2rem !important;
+    }
+
+    @media (max-width: 980px){
+      #top .content > div[style*="grid-template-columns"]{
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
 </head>
 
 <body class="is-preload">
+  <div id="wrapper">
 
-<div id="wrapper">
+    <section id="top" style="padding-top:5rem;">
+      <header>
+        <h1>AWS EC2 Web Server Final Project</h1>
+        <p>
+          Deployed on AWS Free Tier using EC2 + Apache<br/>
+          Source control and updates managed with Git + GitHub
+        </p>
+        <ul class="actions">
+          <li><a href="#slide1" class="arrow scrolly"><span class="label">Next</span></a></li>
+        </ul>
+      </header>
 
-	<!-- TITLE SLIDE -->
-	<section class="intro">
-		<header>
-			<h1>AWS Cloud Web Application</h1>
-			<p>
-				Final Project Presentation<br />
-				Static Web Hosting with AWS Amplify
-			</p>
-			<ul class="actions">
-				<li><a href="#slide1" class="arrow scrolly"><span class="label">Next</span></a></li>
-			</ul>
-		</header>
-		<div class="content">
-			<span class="image fill" data-position="center">
-				<img src="images/pic01.jpg" alt="Cloud computing background" />
-			</span>
-		</div>
-	</section>
+      <div class="content">
+        <h3 style="margin-top:0;">EC2 Summary</h3>
+        <p>
+          For this project I hosted a static website on <strong>Amazon EC2</strong> (AWS Free Tier).
+          I picked EC2 on purpose because it’s a real server setup: I had to create the instance, control network access,
+          install Apache, and deploy the site like you would on an actual Linux web server.
+        </p>
 
-	<!-- SLIDE 1 -->
-	<section id="slide1">
-		<header>
-			<h2>Problem Statement</h2>
-		</header>
-		<div class="content">
-			<p>
-				Traditional web hosting requires manual server configuration,
-				ongoing maintenance, and manual scaling.
-				These factors increase complexity, cost, and the risk of misconfiguration.
-			</p>
-		</div>
-	</section>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.10); border-radius: 14px; padding: 1.5rem;">
+            <h4 style="margin-top:0;">Server stack</h4>
+            <ul style="margin-bottom:0;">
+              <li><strong>Amazon Linux</strong></li>
+              <li><strong>Apache (httpd)</strong> serving the site</li>
+              <li><strong>Git</strong> for pulling updates from GitHub</li>
+              <li>Files hosted in <code>/var/www/html</code></li>
+            </ul>
+          </div>
 
-	<!-- SLIDE 2 -->
-	<section>
-		<header>
-			<h2>Proposed Solution</h2>
-		</header>
-		<div class="content">
-			<p>
-				This project demonstrates a serverless approach using AWS Amplify
-				to host a static web application without managing physical or virtual servers.
-			</p>
-		</div>
-	</section>
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.10); border-radius: 14px; padding: 1.5rem;">
+            <h4 style="margin-top:0;">Security group rules</h4>
+            <ul style="margin-bottom:0;">
+              <li><strong class="aws-orange">SSH (22)</strong> — admin access (restricted to my IP when possible)</li>
+              <li><strong class="aws-orange">HTTP (80)</strong> — public access for the website</li>
+              <li><strong class="aws-orange">HTTPS (443)</strong> — optional for future SSL</li>
+            </ul>
+          </div>
+        </div>
 
-	<!-- SLIDE 3 -->
-	<section>
-		<header>
-			<h2>System Architecture</h2>
-		</header>
-		<div class="content">
-			<p>
-				The architecture leverages fully managed AWS services to ensure
-				scalability, security, and global availability.
-			</p>
-			<ul class="feature-icons">
-				<li class="icon solid fa-code">GitHub Source Repository</li>
-				<li class="icon solid fa-sync">Automated CI/CD Pipeline</li>
-				<li class="icon solid fa-cloud">AWS Amplify Hosting</li>
-				<li class="icon solid fa-globe">Amazon CloudFront CDN</li>
-			</ul>
-		</div>
-	</section>
+        <h4>Update workflow</h4>
+        <ol>
+          <li>Edit locally</li>
+          <li>Commit + push to GitHub</li>
+          <li>On EC2: <code>git pull</code></li>
+        </ol>
 
-	<!-- SLIDE 4 -->
-	<section>
-		<header>
-			<h2>Technologies Used</h2>
-		</header>
-		<div class="content">
-			<p>
-				The following technologies were selected to minimize complexity
-				while following modern cloud best practices.
-			</p>
-			<ul class="feature-icons">
-				<li class="icon solid fa-html5">HTML5</li>
-				<li class="icon solid fa-css3-alt">CSS3</li>
-				<li class="icon solid fa-js">JavaScript</li>
-				<li class="icon solid fa-aws">AWS Amplify</li>
-				<li class="icon solid fa-lock">HTTPS / TLS</li>
-				<li class="icon solid fa-dollar-sign">AWS Free Tier</li>
-			</ul>
-		</div>
-	</section>
+        <p style="margin-bottom:0; color: var(--aws-muted);">
+          The main takeaway is that EC2 forces you to understand the basics: networking rules, Linux administration,
+          and how deployments work without “one click” hosting.
+        </p>
+      </div>
+    </section>
 
-	<!-- SLIDE 5 -->
-	<section>
-		<header>
-			<h2>Deployment Workflow</h2>
-		</header>
-		<div class="content">
-			<p>
-				The deployment process is automated and follows DevOps principles.
-			</p>
-			<ol>
-				<li>Code is pushed to a GitHub repository</li>
-				<li>AWS Amplify detects changes</li>
-				<li>The site is built and deployed automatically</li>
-				<li>Content is served globally via CloudFront</li>
-			</ol>
-		</div>
-	</section>
+    <section id="slide1">
+      <header>
+        <h2>Project Summary</h2>
+      </header>
+      <div class="content">
+        <p>
+          This project demonstrates how to deploy a static website on AWS using a traditional server approach.
+          I launched an EC2 instance (Free Tier), installed Apache, and served the site from
+          <code>/var/www/html</code>. The website code is stored in GitHub and deployed to the server using Git.
+        </p>
+        <ul class="feature-icons">
+          <li class="icon solid fa-cloud">AWS EC2 (Free Tier)</li>
+          <li class="icon solid fa-server">Apache HTTP Server</li>
+          <li class="icon solid fa-code">Git + GitHub</li>
+          <li class="icon solid fa-lock">Security Groups (Firewall Rules)</li>
+          <li class="icon solid fa-terminal">Linux Commands + Troubleshooting</li>
+          <li class="icon solid fa-sync">Repeatable Update Process</li>
+        </ul>
+      </div>
+    </section>
 
-	<!-- SLIDE 6 -->
-	<section>
-		<header>
-			<h2>Security & Reliability</h2>
-		</header>
-		<div class="content">
-			<p>
-				Security and availability are handled by AWS managed services,
-				reducing operational overhead.
-			</p>
-			<ul class="feature-icons">
-				<li class="icon solid fa-shield-alt">HTTPS Enabled by Default</li>
-				<li class="icon solid fa-server">No Server Maintenance</li>
-				<li class="icon solid fa-network-wired">Global Edge Network</li>
-			</ul>
-		</div>
-	</section>
+    <section id="slide2">
+      <header>
+        <h2>Architecture</h2>
+      </header>
+      <div class="content">
+        <p><strong>Traffic flow:</strong></p>
+        <ol>
+          <li>User visits the EC2 <strong>Public IPv4</strong> address in a browser</li>
+          <li>AWS <strong>Security Group</strong> allows inbound <strong class="aws-orange">HTTP (80)</strong> (and optionally <strong class="aws-orange">HTTPS (443)</strong>)</li>
+          <li>Apache serves the static files from <code>/var/www/html</code></li>
+        </ol>
+        <p>
+          This version is intentionally simple: no database and no backend services. The goal was to learn
+          EC2 server setup, networking rules, and deployment workflow.
+        </p>
+      </div>
+    </section>
 
-	<!-- SLIDE 7 -->
-	<section>
-		<header>
-			<h2>Final Outcome</h2>
-		</header>
-		<div class="content">
-			<p>
-				The completed application is:
-			</p>
-			<ul>
-				<li>Scalable</li>
-				<li>Secure</li>
-				<li>Cost-efficient</li>
-				<li>Deployed in under two hours</li>
-			</ul>
-		</div>
-	</section>
+    <section id="slide3">
+      <header>
+        <h2>GitHub Setup and Issues We Fixed</h2>
+      </header>
+      <div class="content">
+        <p>
+          I created a GitHub repository and pushed the project files
+          (<code>index.html</code>, <code>assets/</code>, <code>images/</code>) so the EC2 instance could pull them.
+        </p>
 
-	<!-- SLIDE 8 -->
-	<section>
-		<header>
-			<h2>Conclusion</h2>
-		</header>
-		<div class="content">
-			<p>
-				This project demonstrates how modern cloud platforms like AWS
-				enable rapid deployment of reliable web applications
-				using serverless architectures.
-			</p>
-		</div>
-	</section>
+        <h3>Problems we ran into</h3>
+        <ul>
+          <li><strong>“git is not recognized”</strong> — Git wasn’t installed on the local machine.</li>
+          <li><strong>“Please tell me who you are”</strong> — Git identity wasn’t configured, so commits failed.</li>
+          <li><strong>Push/authentication issues</strong> — fixed by logging in properly (token/auth method depends on setup).</li>
+        </ul>
 
-	<!-- FINAL SLIDE -->
-	<section>
-		<header>
-			<h2>Thank You</h2>
-		</header>
-		<div class="content">
-			<p>
-				Thank you for reviewing this project.
-				Source code and deployment details are available upon request.
-			</p>
-			<ul class="actions">
-				<li><a href="#" class="button primary large">View GitHub Repository</a></li>
-			</ul>
-		</div>
-	</section>
+        <h3>Git identity</h3>
+        <pre><code>git config --global user.name "Derek Murphy"
+git config --global user.email "DerekaMurphy03@gmail.com"</code></pre>
+      </div>
+    </section>
 
-	<!-- FOOTER -->
-	<div class="copyright">
-		&copy; 2025. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.
-	</div>
+    <section id="slide4">
+      <header>
+        <h2>AWS EC2 Setup and Security</h2>
+      </header>
+      <div class="content">
+        <p>
+          I launched an EC2 instance (Amazon Linux) and used a security group to control inbound traffic.
+          The security group works like a firewall.
+        </p>
 
-</div>
+        <h3>Inbound rules</h3>
+        <ul>
+          <li><span class="aws-orange">SSH (22)</span> — used to connect/administer the instance</li>
+          <li><span class="aws-orange">HTTP (80)</span> — required so the website loads</li>
+          <li><span class="aws-orange">HTTPS (443)</span> — optional for SSL later</li>
+        </ul>
 
-<!-- Scripts -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.scrolly.min.js"></script>
-<script src="assets/js/browser.min.js"></script>
-<script src="assets/js/breakpoints.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
+        <h3>SSH connection issue</h3>
+        <p>
+          Even when the instance showed “checks passed,” we hit SSH connection errors. The fix was making sure the
+          security group rule matched the way we were connecting.
+        </p>
+        <ul>
+          <li>When using <strong>EC2 Instance Connect</strong>, restricting SSH to “My IP” can block the browser connection.</li>
+          <li>We temporarily allowed SSH from <strong>Anywhere IPv4</strong> to get in, then locked it back down.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="slide5">
+      <header>
+        <h2>Apache Install and Deployment</h2>
+      </header>
+      <div class="content">
+        <p>
+          After connecting to the instance, I installed Apache and Git, enabled the service, and deployed the site by cloning the repo.
+        </p>
+
+        <pre><code>sudo yum update -y
+sudo yum install httpd git -y
+sudo systemctl enable --now httpd
+
+cd /var/www/html
+sudo rm -f index.html
+sudo git clone https://github.com/damurphy1/aws-final-project.git .</code></pre>
+
+        <p>
+          The dot at the end of the clone command puts the repository contents directly into <code>/var/www/html</code>.
+        </p>
+      </div>
+    </section>
+
+    <section id="slide6">
+      <header>
+        <h2>Updating the Website</h2>
+      </header>
+      <div class="content">
+        <p>Update process:</p>
+        <ol>
+          <li>Edit locally</li>
+          <li>Push to GitHub</li>
+          <li>Pull on EC2</li>
+        </ol>
+
+        <h3>Local</h3>
+        <pre><code>git add .
+git commit -m "Update website content"
+git push</code></pre>
+
+        <h3>EC2</h3>
+        <pre><code>cd /var/www/html
+git pull</code></pre>
+
+        <h3>Problems we fixed during updates</h3>
+        <ul>
+          <li>
+            <strong>Dubious ownership</strong> — fixed by correcting ownership and/or marking the directory as safe:
+            <pre><code>sudo chown -R ec2-user:ec2-user /var/www/html
+git config --global --add safe.directory /var/www/html</code></pre>
+          </li>
+          <li>
+            <strong>Local changes would be overwritten</strong> — fixed by stashing or resetting:
+            <pre><code>git stash
+git pull</code></pre>
+            <pre><code>git reset --hard
+git pull</code></pre>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+<section id="slide8">
+  <header>
+    <h2>Links and Resources</h2>
+  </header>
+  <div class="content">
+    <p>
+      These are the main resources I used to complete this project. They cover launching an EC2 instance,
+      connecting with SSH / EC2 Instance Connect, configuring security groups, installing Apache, and using Git/GitHub.
+    </p>
+
+    <h3>My project repo</h3>
+    <ul class="actions">
+      <li><a href="https://github.com/damurphy1/aws-final-project" class="button primary large">GitHub Repository</a></li>
+    </ul>
+
+    <h3>AWS documentation</h3>
+    <ul>
+      <li><a href="https://docs.aws.amazon.com/ec2/" target="_blank" rel="noopener">Amazon EC2 Documentation (main)</a></li>
+      <li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html" target="_blank" rel="noopener">EC2 Getting Started (User Guide)</a></li>
+      <li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-methods.html" target="_blank" rel="noopener">EC2 Instance Connect (connection methods)</a></li>
+      <li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html" target="_blank" rel="noopener">Security Groups (inbound/outbound rules)</a></li>
+      <li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html" target="_blank" rel="noopener">Connect to a Linux Instance (SSH)</a></li>
+      <li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html" target="_blank" rel="noopener">EBS Storage Basics (root volume)</a></li>
+    </ul>
+
+    <h3>Apache (httpd) and Linux references</h3>
+    <ul>
+      <li><a href="https://httpd.apache.org/docs/" target="_blank" rel="noopener">Apache HTTP Server Documentation</a></li>
+      <li><a href="https://docs.aws.amazon.com/linux/" target="_blank" rel="noopener">Amazon Linux Documentation</a></li>
+    </ul>
+
+    <h3>Git and GitHub references</h3>
+    <ul>
+      <li><a href="https://git-scm.com/doc" target="_blank" rel="noopener">Git Documentation</a></li>
+      <li><a href="https://docs.github.com/en/get-started" target="_blank" rel="noopener">GitHub “Get Started” Guide</a></li>
+      <li><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github" target="_blank" rel="noopener">GitHub authentication (tokens vs passwords)</a></li>
+      <li><a href="https://docs.github.com/en/get-started/getting-started-with-git/setting-your-username-in-git" target="_blank" rel="noopener">Set username/email for Git commits</a></li>
+    </ul>
+
+    <h3>Helpful troubleshooting links</h3>
+    <ul>
+      <li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesConnecting.html" target="_blank" rel="noopener">EC2: Troubleshoot connecting to your instance</a></li>
+      <li><a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-safedirectory" target="_blank" rel="noopener">Git “safe.directory” (dubious ownership)</a></li>
+      <li><a href="https://git-scm.com/docs/git-stash" target="_blank" rel="noopener">git stash (save local changes)</a></li>
+      <li><a href="https://git-scm.com/docs/git-reset" target="_blank" rel="noopener">git reset --hard (discard local changes)</a></li>
+    </ul>
+
+    <p style="margin-bottom:0; color: var(--aws-muted);">
+      If you’re reproducing this project: the most important topics to understand are Security Groups (ports 22/80/443),
+      connecting to EC2, and deploying updates with Git (push locally, pull on EC2).
+    </p>
+  </div>
+</section>
+
+
+    <div class="copyright">
+      &copy; 2025. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.
+    </div>
+
+  </div>
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
 
 </body>
 </html>
